@@ -1,16 +1,56 @@
 ﻿SavingsAccount account = new SavingsAccount();
 
-try
+while (true)
 {
-    account.Deposit(100000);
-    Console.WriteLine($"Current balance: ${account.Balance:N0}");
+    Console.WriteLine();
+    Console.WriteLine("=== SAVINGS ACCOUNT ===");
+    Console.WriteLine("1. Deposit money");
+    Console.WriteLine("2. Withdraw money");
+    Console.WriteLine("3. Check balance");
+    Console.WriteLine("4. Exit");
 
-    account.Withdraw(30000);
-    Console.WriteLine($"Balance after withdrawal: ${account.Balance:N0}");
-}
-catch (ArgumentException ex)
+    Console.Write("Enter an option: ");
+    string? option = Console.ReadLine();
+
+   if (option == "1")
 {
-    Console.WriteLine($"Error: {ex.Message}");
-}
+    decimal amount = InputHelper.ReadAmount("Enter deposit amount: ");
 
-Console.WriteLine("Program continues running.");
+    try
+    {
+        account.Deposit(amount);
+        Console.WriteLine($"Deposit successful. Current balance: ${account.Balance:N0}");
+    }
+    catch (ArgumentException ex)
+    {
+        Console.WriteLine($"Error: {ex.Message}");
+    }
+}
+    else if (option == "2")
+{
+    decimal amount = InputHelper.ReadAmount("Enter withdrawal amount: ");
+
+    try
+    {
+        account.Withdraw(amount);
+        Console.WriteLine($"Withdrawal successful. Current balance: ${account.Balance:N0}");
+    }
+    catch (ArgumentException ex)
+    {
+        Console.WriteLine($"Error: {ex.Message}");
+    }
+}
+    else if (option == "3")
+    {
+        Console.WriteLine($"Current balance: ${account.Balance:N0}");
+    }
+    else if (option == "4")
+    {
+        Console.WriteLine("Goodbye!");
+        break;
+    }
+    else
+    {
+        Console.WriteLine("Invalid option.");
+    }
+}
